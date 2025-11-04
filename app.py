@@ -19,31 +19,35 @@ def calcular_frete():
         
         
         if tipo_frete == "ninja":
-            if (altura >= 5 or altura <=140) or (largura >= 13 or largura <= 125) or peso >= 0:
+            if (altura >= 5 and altura <=140) and (largura >= 13 and largura <= 125) and peso >= 0:
+                
+                valor_frete = (peso * 0.3) /10
                 return jsonify({                       
                                     "nome":"Entrega Ninja",
                                     "valor_frete": f"{valor_frete:.2f}",
                                     "prazo_dias": 6            
-                                }),
+                                })
             
             else:
-                return jsonify({"erro": "largura ou altura não corresponde ao tamanho permitido - altura máxima = 140, largura máxima = 125"}),400
+                return jsonify([]),400
                 
                 
         elif tipo_frete == "kabum":   
-            if (altura >= 10 or altura <=200) or (largura >= 6 or largura <= 140) or peso >= 0:
-            
-                return jsonify({"erro": "largura ou altura não corresponde ao tamanho permitido - altura máxima = 200, largura máxima = 140"}),400
-            else:
+            if (altura >= 10 and altura <=200) and (largura >= 6 and largura <= 140) and peso >= 0:
+                
                 valor_frete = (peso * 0.2) /10
                 return jsonify({
                                                         
-                                    "nome":"Entrega Ninja",
+                                    "nome":"Entrega Kabum",
                                     "valor_frete": f"{valor_frete:.2f}",
                                     "prazo_dias": 4            
-                                }),
+                                })
+            
+            else:
+                return jsonify([]),400
+            
     except Exception as e:
-        print(f"{e}")
+        return jsonify({"erro": f"{e}"})
 
             
             
